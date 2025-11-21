@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFO INVADERS - Secure Wipe Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>INFO INVADERS</span>
+                <small>Secure Wipe Dashboard</small>
+            </div>
+            <div class="header-actions">
+                <button id="detect-devices-btn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i>
+                    Detect Devices
+                </button>
+                <button id="new-session-btn" class="btn btn-secondary">
+                    <i class="fas fa-plus"></i>
+                    New Session
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a></li>
+                    <li><a href="#devices" class="nav-link" data-section="devices">
+                        <i class="fas fa-hdd"></i>
+                        Devices
+                    </a></li>
+                    <li><a href="#wipe" class="nav-link" data-section="wipe">
+                        <i class="fas fa-eraser"></i>
+                        Secure Wipe
+                    </a></li>
+                    <li><a href="#verification" class="nav-link" data-section="verification">
+                        <i class="fas fa-check-circle"></i>
+                        Verification
+                    </a></li>
+                    <li><a href="#certificates" class="nav-link" data-section="certificates">
+                        <i class="fas fa-certificate"></i>
+                        Certificates
+                    </a></li>
+                    <li><a href="#reports" class="nav-link" data-section="reports">
+                        <i class="fas fa-file-alt"></i>
+                        Reports
+                    </a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                    <p>Overview of system status and recent activities</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <i class="fas fa-hdd"></i>
+                            <h3>Connected Devices</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stat-number" id="device-count">0</div>
+                            <div class="stat-label">Devices Detected</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <i class="fas fa-tasks"></i>
+                            <h3>Active Sessions</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stat-number" id="active-sessions">0</div>
+                            <div class="stat-label">Running Operations</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Completed Wipes</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stat-number" id="completed-wipes">0</div>
+                            <div class="stat-label">Successfully Completed</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <i class="fas fa-certificate"></i>
+                            <h3>Certificates Generated</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stat-number" id="certificates-count">0</div>
+                            <div class="stat-label">Valid Certificates</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="recent-activities">
+                    <div class="section-header">
+                        <h3>Recent Activities</h3>
+                        <button id="clear-activities" class="btn btn-sm btn-outline">Clear</button>
+                    </div>
+                    <div id="activities-list" class="activities-list">
+                        <div class="no-data">
+                            <i class="fas fa-info-circle"></i>
+                            <p>No recent activities</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Devices Section -->
+            <section id="devices-section" class="content-section">
+                <div class="section-header">
+                    <h2>Storage Devices</h2>
+                    <p>Detected storage devices available for secure wiping</p>
+                    <button id="refresh-devices" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+
+                <div id="devices-list" class="devices-grid">
+                    <div class="no-data">
+                        <i class="fas fa-hdd"></i>
+                        <p>No devices detected</p>
+                        <button id="detect-devices-first" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                            Detect Devices
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secure Wipe Section -->
+            <section id="wipe-section" class="content-section">
+                <div class="section-header">
+                    <h2>Secure Wipe Configuration</h2>
+                    <p>Configure and execute secure wipe operations</p>
+                </div>
+
+                <div class="wipe-config">
+                    <form id="wipe-form" class="form-grid">
+                        <div class="form-group">
+                            <label for="device-select">Target Device</label>
+                            <select id="device-select" required>
+                                <option value="">Select a device...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profile-select">Security Profile</label>
+                            <select id="profile-select" required>
+                                <option value="citizen">Citizen (1 Confirmation)</option>
+                                <option value="enterprise">Enterprise (3 Confirmations)</option>
+                                <option value="government">Government (3 Confirmations + Enhanced)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="standard-select">Wiping Standard</label>
+                            <select id="standard-select" required>
+                                <option value="NIST SP 800-88">NIST SP 800-88 (Single Pass)</option>
+                                <option value="HSE">HSE (Multi-Pass)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="include-hpa-dco" checked>
+                                <span class="checkmark"></span>
+                                Include HPA/DCO Areas
+                            </label>
+                            <small>Wipe hidden disk areas (recommended)</small>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="start-wipe-btn" class="btn btn-danger btn-large">
+                                <i class="fas fa-eraser"></i>
+                                Start Secure Wipe
+                            </button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </form>
+
+                    <!-- Active Wipe Operations -->
+                    <div id="active-wipes" class="active-operations" style="display: none;">
+                        <h3>Active Wipe Operations</h3>
+                        <div id="wipe-progress-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Verification Section -->
+            <section id="verification-section" class="content-section">
+                <div class="section-header">
+                    <h2>Data Recovery Verification</h2>
+                    <p>Verify wipe effectiveness using PhotoRec/TestDisk</p>
+                </div>
+
+                <div class="verification-content">
+                    <div class="verification-form">
+                        <div class="form-group">
+                            <label for="verify-device-select">Select Device to Verify</label>
+                            <select id="verify-device-select">
+                                <option value="">Choose a device...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button id="run-verification-btn" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                                Run Verification
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="verification-results" class="verification-results" style="display: none;">
+                        <h3>Verification Results</h3>
+                        <div id="verification-output"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certificates Section -->
+            <section id="certificates-section" class="content-section">
+                <div class="section-header">
+                    <h2>Wipe Certificates</h2>
+                    <p>Generated certificates with DNA fingerprinting</p>
+                </div>
+
+                <div id="certificates-list" class="certificates-grid">
+                    <div class="no-data">
+                        <i class="fas fa-certificate"></i>
+                        <p>No certificates generated yet</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports-section" class="content-section">
+                <div class="section-header">
+                    <h2>Wipe Reports</h2>
+                    <p>Detailed reports of all wipe operations</p>
+                </div>
+
+                <div id="reports-list" class="reports-grid">
+                    <div class="no-data">
+                        <i class="fas fa-file-alt"></i>
+                        <p>No reports available</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Progress Modal -->
+    <div id="progress-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Secure Wipe in Progress</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="progress-info">
+                    <div id="progress-device-info"></div>
+                    <div class="progress-bar-container">
+                        <div id="progress-bar" class="progress-bar">
+                            <div class="progress-fill"></div>
+                            <span class="progress-text">0%</span>
+                        </div>
+                    </div>
+                    <div id="progress-status" class="progress-status">Initializing...</div>
+                    <div id="progress-time" class="progress-time"></div>
+                </div>
+                
+                <div class="logs-section">
+                    <h4>Live Logs</h4>
+                    <div id="live-logs" class="logs-container"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="view-detailed-logs" class="btn btn-secondary">View Detailed Logs</button>
+                <button id="stop-operation" class="btn btn-danger" style="display: none;">Stop Operation</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Secure Wipe</h3>
+            </div>
+            <div class="modal-body">
+                <div class="warning-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>This action will permanently erase all data on the selected device.</p>
+                    <p><strong>This operation cannot be undone!</strong></p>
+                </div>
+                <div id="confirmation-details"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-wipe" class="btn btn-secondary">Cancel</button>
+                <button id="confirm-wipe" class="btn btn-danger">Confirm Wipe</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="components/device-detection.js"></script>
+    <script src="components/wipe-progress.js"></script>
+    <script src="components/certificate-viewer.js"></script>
+    <script src="components/dashboard.js"></script>
+    <script src="renderer.js"></script>
+</body>
+</html>

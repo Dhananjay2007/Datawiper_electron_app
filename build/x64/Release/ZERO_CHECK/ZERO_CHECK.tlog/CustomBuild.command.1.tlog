@@ -1,0 +1,10 @@
+^D:\HSE_PROTOTYPE\CORE\BUILD\CMAKEFILES\AB3FCABCBA0F97127B717BE7EF93379C\GENERATE.STAMP.RULE
+setlocal
+D:\bin\cmake.exe -SD:/HSE_prototype/core -BD:/HSE_prototype/core/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/HSE_prototype/core/build/hse_wiper.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

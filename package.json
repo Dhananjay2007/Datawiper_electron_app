@@ -1,0 +1,34 @@
+{
+  "name": "secure-wipe-dashboard",
+  "version": "1.0.0",
+  "description": "Professional secure wipe application with HPA/DCO support",
+  "main": "main.js",
+  "author": "INFO INVADERS",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "node scripts/build.js",
+    "install-deps": "node scripts/install-deps.js",
+    "rebuild": "electron-rebuild",
+    "dist": "electron-builder",
+    "clean": "rmdir /s /q node_modules & rmdir /s /q build & del package-lock.json",
+    "setup": "npm install && npm run install-deps",
+    "gypfile": true
+  },
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "fs-extra": "^11.2.0",
+    "moment": "^2.29.4",
+    "nan": "^2.23.0",
+    "node-addon-api": "^7.1.1",
+    "path": "^0.12.7",
+    "systeminformation": "^5.21.20",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "electron": "^38.1.2",
+    "electron-builder": "^24.9.1",
+    "electron-rebuild": "^3.2.9",
+    "node-gyp": "^10.0.0"
+  }
+}

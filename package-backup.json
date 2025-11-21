@@ -1,0 +1,83 @@
+{
+  "name": "secure-wipe-dashboard",
+  "version": "1.0.0",
+  "description": "Professional secure wipe application with HPA/DCO support",
+  "main": "main.js",
+  "author": "INFO INVADERS",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "node scripts/build.js",
+    "install-deps": "node scripts/install-deps.js",
+    "rebuild": "electron-rebuild",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "electron": "^28.0.0",
+    "node-addon-api": "^7.1.0",
+    "node-gyp": "^10.0.0",
+    "electron-rebuild": "^3.2.9",
+    "bindings": "^1.5.0",
+    "systeminformation": "^5.21.20",
+    "ws": "^8.16.0",
+    "express": "^4.18.2",
+    "multer": "^1.4.5",
+    "uuid": "^9.0.1",
+    "moment": "^2.29.4",
+    "crypto": "^1.0.1",
+    "child_process": "^1.0.2",
+    "fs-extra": "^11.2.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.9.1",
+    "@types/node": "^20.10.8"
+  },
+  "build": {
+    "appId": "com.infoinvaders.securewipe",
+    "productName": "Secure Wipe Dashboard",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!src/cpp/**",
+      "!scripts/**",
+      "!*.gyp",
+      "build/Release/secure_wiper.node"
+    ],
+    "extraFiles": [
+      {
+        "from": "src/python",
+        "to": "python",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/icons/app.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Utility"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.utilities"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infoinvaders/secure-wipe-dashboard.git"
+  },
+  "keywords": [
+    "secure",
+    "wipe",
+    "data",
+    "erasure",
+    "hpa",
+    "dco",
+    "nist",
+    "forensic"
+  ]
+}
